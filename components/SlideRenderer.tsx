@@ -243,7 +243,7 @@ const SlideRenderer: React.FC<Props> = ({ data }) => {
                   <SimplePieChart data={[
                     { name: 'Ordered', value: 650000 },
                     { name: 'Dispatched', value: 169082 }
-                  ]} colors={['#059669', '#DC2626']} />
+                  ]} colors={['#FFD100', '#059669']} />
                 </div>
               </div>
 
