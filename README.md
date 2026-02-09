@@ -51,6 +51,13 @@ A modern, enterprise-grade presentation engine built with React, TypeScript, and
    npm run preview
    ```
 
+## Deployment
+
+The application can be run locally and is also deployed online:
+
+- **Local Development**: Run `npm run dev` to start on http://localhost:3000
+- **Production Deployment**: Available at https://bidhan.imakshay.in
+
 ## Project Structure
 
 ```
