@@ -67,23 +67,29 @@
           width: 100% !important;
           height: auto !important;
           min-height: 300px !important;
+          max-height: 400px !important;
+          overflow: hidden !important;
         }
         .recharts-surface {
           width: 100% !important;
           height: auto !important;
           max-width: 100% !important;
+          max-height: 400px !important;
         }
         /* Ensure chart containers have proper dimensions */
         .recharts-responsive-container {
           width: 100% !important;
           height: 100% !important;
           min-height: 300px !important;
+          max-height: 400px !important;
           position: relative !important;
+          overflow: hidden !important;
         }
         /* Fix bar and pie charts */
         svg.recharts-surface {
-          overflow: visible !important;
+          overflow: hidden !important;
           max-width: 100% !important;
+          max-height: 400px !important;
           height: auto !important;
         }
         /* Prevent chart text from being cut off */
@@ -91,20 +97,31 @@
           font-size: 10px !important;
         }
         /* Fix grid layout for charts */
-        [class*=\"grid\"] {
+        [class*="grid"] {
           display: grid !important;
+          overflow: hidden !important;
         }
         /* Force chart parent containers to have proper height */
-        .print-slide-page [class*=\"grid\"] > div {
-          min-height: 350px !important;
+        .print-slide-page [class*="grid"] > div {
+          min-height: 300px !important;
+          max-height: 400px !important;
           display: flex !important;
           align-items: center !important;
           justify-content: center !important;
+          overflow: hidden !important;
         }
         /* Ensure charts are visible and sized properly */
         .recharts-wrapper svg {
           width: 100% !important;
           height: auto !important;
+          max-height: 400px !important;
+        }
+        /* Constrain chart containers */
+        .print-slide-page * {
+          box-sizing: border-box !important;
+        }
+        .print-slide-page [class*="rounded"] {
+          overflow: hidden !important;
         }
       }
       .print-only {
