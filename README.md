@@ -76,11 +76,24 @@ VITE_API_URL=http://localhost:3000 # API endpoint (if needed)
 
 ### SPA Routing Configuration
 
-The app includes a `_redirects` file in the `public/` folder to handle client-side routing on static hosts. This ensures that direct navigation to routes like `/admin` works properly in production.
+The app includes multiple configuration files to ensure client-side routing works on all hosting platforms:
 
-If your hosting platform doesn't support `_redirects` files (Netlify/Vercel format), you may need:
+- **`public/_redirects`** - For Netlify and compatible static hosts
+- **`public/.htaccess`** - For Apache servers
+- **`vercel.json`** - For Vercel deployments
+- **`netlify.toml`** - For Netlify (alternative to \_redirects)
 
-- **Apache**: Add `.htaccess` with `FallbackResource /index.html`
+These files ensure that direct navigation to routes like `/admin` and `/admin/dashboard` works properly in production.
+
+**Important for deployment:**
+
+1. Make sure to run `npm run build` to create the production build
+2. Deploy the `dist/` folder contents to your hosting platform
+3. The routing configuration files will be automatically included from the `public/` directory
+4. All routes (`/`, `/admin`, `/admin/dashboard`) will correctly load the React app
+
+If your hosting platform doesn't support these files, you may need to configure server-side routing manually:
+
 - **Nginx**: Configure `try_files $uri $uri/ /index.html`
 - **Other platforms**: Check their documentation for SPA routing support
 

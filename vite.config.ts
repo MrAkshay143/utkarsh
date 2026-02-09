@@ -10,6 +10,15 @@ export default defineConfig(({ mode }) => {
         port: parseInt(env.VITE_PORT) || 3000,
         host: env.VITE_HOST || '0.0.0.0',
       },
+      build: {
+        outDir: 'dist',
+        emptyOutDir: true,
+        rollupOptions: {
+          output: {
+            manualChunks: undefined,
+          },
+        },
+      },
       plugins: [react()],
       define: {
         'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
@@ -19,6 +28,7 @@ export default defineConfig(({ mode }) => {
         alias: {
           '@': path.resolve(__dirname, '.'),
         }
-      }
+      },
+      publicDir: 'public',
     };
 });
