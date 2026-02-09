@@ -58,6 +58,8 @@ The application can be run locally and is also deployed online:
 - **Local Development**: Run `npm run dev` to start on http://localhost:3000
 - **Production Deployment**: Available at https://bidhan.imakshay.in
 
+The app automatically detects the environment (localhost vs production domain) and configures settings accordingly using the `config.ts` file.
+
 ## Project Structure
 
 ```
@@ -70,6 +72,7 @@ The application can be run locally and is also deployed online:
 ├── context/
 │   └── SlideContext.tsx      # State management for slides
 ├── public/                   # Static assets
+├── config.ts                # Dynamic environment configuration
 ├── App.tsx                  # Main application component
 ├── index.tsx                # Application entry point
 ├── constants.tsx            # Application constants
