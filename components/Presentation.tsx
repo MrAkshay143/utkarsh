@@ -93,7 +93,7 @@ const Presentation: React.FC = () => {
   return (
     <>
       <div className="w-full h-screen flex flex-col bg-gray-900 screen-only">
-        <div className="flex-1 relative overflow-hidden bg-white max-w-[1920px] mx-auto w-full shadow-2xl">
+        <div className="flex-1 relative overflow-hidden bg-white max-w-[1920px] mx-auto w-full shadow-2xl group">
           <SlideRenderer data={slides[currentSlideIndex]} />
 
           {/* Control Footer Bar - Icon buttons only, Auto-hide in full screen */}
@@ -135,19 +135,19 @@ const Presentation: React.FC = () => {
             </div>
           )}
 
-          {/* Navigation Overlays */}
+          {/* Navigation Overlays - Smaller, Show on Hover Only */}
           <button 
               onClick={prevSlide}
               disabled={currentSlideIndex === 0}
-              className={`absolute left-4 top-1/2 -translate-y-1/2 p-4 rounded-full bg-black/10 hover:bg-black/30 text-gray-600 hover:text-white transition-all z-30 ${currentSlideIndex === 0 ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+              className={`absolute left-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/20 hover:bg-black/40 text-white transition-all z-30 opacity-0 group-hover:opacity-100 ${currentSlideIndex === 0 ? '!opacity-0 pointer-events-none' : ''}`}
           >
-              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
           </button>
 
           <button 
               onClick={nextSlide}
               disabled={currentSlideIndex === slides.length - 1}
-              className={`absolute right-4 top-1/2 -translate-y-1/2 p-4 rounded-full bg-black/10 hover:bg-black/30 text-gray-600 hover:text-white transition-all z-30 ${currentSlideIndex === slides.length - 1 ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+              className={`absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/20 hover:bg-black/40 text-white transition-all z-30 opacity-0 group-hover:opacity-100 ${currentSlideIndex === slides.length - 1 ? '!opacity-0 pointer-events-none' : ''}`}
           >
               <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
           </button>
