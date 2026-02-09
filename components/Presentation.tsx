@@ -96,22 +96,17 @@ const Presentation: React.FC = () => {
         <div className="flex-1 relative overflow-hidden bg-white max-w-[1920px] mx-auto w-full shadow-2xl">
           <SlideRenderer data={slides[currentSlideIndex]} />
 
-          {/* Control Buttons - Overlay at bottom, Auto-hide in full screen */}
+          {/* Control Footer Bar - Icon buttons only, Auto-hide in full screen */}
           {!isFullScreen && (
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-3 z-40">
-              {/* Print Button */}
-              <button 
-                  onClick={() => window.print()}
-                  className="p-3 rounded-full bg-white/90 hover:bg-utkarsh-red hover:text-white text-gray-700 transition-all shadow-lg hover:shadow-xl backdrop-blur-sm"
-                  title="Print Slides (Ctrl+P)"
-              >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" /></svg>
-              </button>
-
+            <div className="absolute bottom-4 left-0 right-0 flex items-center justify-center gap-3 z-40">
               {/* Full Screen Button */}
               <button 
                   onClick={toggleFullScreen}
-                  className="p-3 rounded-full bg-white/90 hover:bg-utkarsh-blue hover:text-white text-gray-700 transition-all shadow-lg hover:shadow-xl backdrop-blur-sm"
+                  className={`p-3 rounded-full transition-all hover:shadow-lg ${
+                    isFullScreen 
+                      ? 'bg-utkarsh-blue/90 text-white hover:bg-utkarsh-blue' 
+                      : 'bg-white/20 hover:bg-utkarsh-blue/90 text-white backdrop-blur-sm'
+                  }`}
                   title={isFullScreen ? "Exit Full Screen (F or Esc)" : "Enter Full Screen (F)"}
               >
                   {isFullScreen ? (
@@ -124,10 +119,10 @@ const Presentation: React.FC = () => {
               {/* Auto Play Button */}
               <button 
                   onClick={toggleAutoPlay}
-                  className={`p-3 rounded-full transition-all shadow-lg hover:shadow-xl backdrop-blur-sm ${
+                  className={`p-3 rounded-full transition-all hover:shadow-lg ${
                     isAutoPlay 
-                      ? 'bg-utkarsh-yellow text-gray-800 hover:bg-utkarsh-yellow/90' 
-                      : 'bg-white/90 hover:bg-utkarsh-yellow hover:text-gray-800 text-gray-700'
+                      ? 'bg-utkarsh-yellow/90 text-gray-800 hover:bg-utkarsh-yellow' 
+                      : 'bg-white/20 hover:bg-utkarsh-yellow/90 text-white hover:text-gray-800 backdrop-blur-sm'
                   }`}
                   title={isAutoPlay ? "Stop Auto Play (Esc)" : "Start Auto Play (5s per slide)"}
               >
@@ -167,14 +162,6 @@ const Presentation: React.FC = () => {
         </div>
       </div>
 
-      {/* Print Layout */}
-      <div className="print-only">
-        {slides.map((slide) => (
-           <div key={slide.id} className="print-slide-page">
-              <SlideRenderer data={slide} isPrint={true} />
-           </div>
-        ))}
-      </div>
     </>
   );
 };

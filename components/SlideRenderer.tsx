@@ -5,10 +5,9 @@ import { UtkarshLogo } from '../constants';
 
 interface Props {
   data: SlideData;
-  isPrint?: boolean;
 }
 
-const SlideRenderer: React.FC<Props> = ({ data, isPrint = false }) => {
+const SlideRenderer: React.FC<Props> = ({ data }) => {
 
   // Helper function to check if a field should be displayed
   const isFieldVisible = (fieldKey: string) => {
@@ -178,7 +177,7 @@ const SlideRenderer: React.FC<Props> = ({ data, isPrint = false }) => {
                     </div>
                 </div>
                 <div className="flex-1">
-                    <SimpleBarChart data={data.content.chartData} colors={['#E31E24', '#005CA9', '#FFD100', '#E31E24', '#005CA9', '#FFD100']} isPrint={isPrint} />
+                    <SimpleBarChart data={data.content.chartData} colors={['#E31E24', '#005CA9', '#FFD100', '#E31E24', '#005CA9', '#FFD100']} />
                 </div>
             </div>
           </div>
@@ -196,7 +195,7 @@ const SlideRenderer: React.FC<Props> = ({ data, isPrint = false }) => {
                 <div className="bg-white/95 p-8 rounded-2xl shadow-xl h-96 flex flex-col backdrop-blur-sm">
                     <h4 className="text-sm font-bold text-gray-400 uppercase mb-6 tracking-wider">Annualized Projection</h4>
                     <div className="flex-1">
-                        <SimpleBarChart data={data.content.chartData} colors={['#E31E24', '#005CA9', '#FFD100']} isPrint={isPrint} />
+                        <SimpleBarChart data={data.content.chartData} colors={['#E31E24', '#005CA9', '#FFD100']} />
                     </div>
                 </div>
             </div>
@@ -228,7 +227,7 @@ const SlideRenderer: React.FC<Props> = ({ data, isPrint = false }) => {
                   QUOTATION STATUS CHART
                 </h4>
                 <div className="flex-1 min-h-0">
-                  <SimpleBarChart data={data.content.chartData} isPrint={isPrint} />
+                  <SimpleBarChart data={data.content.chartData} />
                 </div>
               </div>
 
@@ -244,7 +243,7 @@ const SlideRenderer: React.FC<Props> = ({ data, isPrint = false }) => {
                   <SimplePieChart data={[
                     { name: 'Ordered', value: 650000 },
                     { name: 'Dispatched', value: 169082 }
-                  ]} colors={['#059669', '#DC2626']} isPrint={isPrint} />
+                  ]} colors={['#059669', '#DC2626']} />
                 </div>
               </div>
 
@@ -260,7 +259,7 @@ const SlideRenderer: React.FC<Props> = ({ data, isPrint = false }) => {
                   <SimpleBarChart data={[
                     { name: 'ORDER RECEIVE', value: 812500 },
                     { name: 'DISPATCHED', value: 215169 }
-                  ]} colors={['#005CA9', '#FFD100']} isPrint={isPrint} />
+                  ]} colors={['#005CA9', '#FFD100']} />
                 </div>
               </div>
             </div>
@@ -291,7 +290,7 @@ const SlideRenderer: React.FC<Props> = ({ data, isPrint = false }) => {
                     { name: '3M Dispatch', value: 600000 },
                     { name: '1Y Order', value: 3600000 },
                     { name: '1Y Dispatch', value: 2400000 }
-                  ]} colors={['#E31E24', '#005CA9', '#DC2626', '#2563EB']} isPrint={isPrint} />
+                  ]} colors={['#E31E24', '#005CA9', '#DC2626', '#2563EB']} />
                 </div>
               </div>
 
@@ -309,7 +308,7 @@ const SlideRenderer: React.FC<Props> = ({ data, isPrint = false }) => {
                     { name: '3M Dispatch', value: 750000 },
                     { name: '1Y Order', value: 4500000 },
                     { name: '1Y Dispatch', value: 3000000 }
-                  ]} colors={['#7C3AED', '#059669', '#A855F7', '#10B981']} isPrint={isPrint} />
+                  ]} colors={['#7C3AED', '#059669', '#A855F7', '#10B981']} />
                 </div>
               </div>
             </div>

@@ -7,61 +7,48 @@ interface ChartProps {
   colors?: string[];
 }
 
-export const SimplePieChart: React.FC<ChartProps & { isPrint?: boolean }> = ({ data, colors, isPrint = false }) => {
+export const SimplePieChart: React.FC<ChartProps> = ({ data, colors }) => {
   const chartColors = colors || ['#005CA9', '#E31E24', '#FFD100', '#059669', '#7C3AED'];
-
-  const ChartContent = (
-    <PieChart width={isPrint ? 300 : undefined} height={isPrint ? 220 : undefined} >
-        <Pie
-          data={data}
-          cx="50%"
-          cy="50%"
-          innerRadius={isPrint ? 35 : 40}
-          outerRadius={isPrint ? 70 : 70}
-          paddingAngle={5}
-          dataKey="value"
-        >
-          {data.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={chartColors[index % chartColors.length]} stroke="none" />
-          ))}
-          <LabelList 
-            dataKey="value" 
-            position="outside" 
-            fill="#374151" 
-            fontSize={isPrint ? 11 : 10} 
-            fontWeight="bold"
-            formatter={(value: number) => value.toLocaleString()}
-          />
-        </Pie>
-        {!isPrint && <Tooltip contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }} />}
-        <Legend verticalAlign="bottom" height={36} iconType="circle" iconSize={8} wrapperStyle={{ fontSize: isPrint ? '10px' : '10px' }} />
-    </PieChart>
-  );
-
-  if (isPrint) {
-      return (
-          <div style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', maxHeight: '300px', overflow: 'hidden' }}>
-             {ChartContent}
-          </div>
-      );
-  }
 
   return (
     <ResponsiveContainer width="100%" height="100%">
-      {ChartContent}
+      <PieChart>
+          <Pie
+            data={data}
+            cx="50%"
+            cy="50%"
+            innerRadius={40}
+            outerRadius={70}
+            paddingAngle={5}
+            dataKey="value"
+          >
+            {data.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={chartColors[index % chartColors.length]} stroke="none" />
+            ))}
+            <LabelList 
+              dataKey="value" 
+              position="outside" 
+              fill="#374151" 
+              fontSize={10} 
+              fontWeight="bold"
+              formatter={(value: number) => value.toLocaleString()}
+            />
+          </Pie>
+          <Tooltip contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }} />
+          <Legend verticalAlign="bottom" height={36} iconType="circle" iconSize={8} wrapperStyle={{ fontSize: '10px' }} />
+      </PieChart>
     </ResponsiveContainer>
   );
 };
 
-export const SimpleBarChart: React.FC<ChartProps & { isPrint?: boolean }> = ({ data, color = "#005CA9", colors, isPrint = false }) => {
+export const SimpleBarChart: React.FC<ChartProps> = ({ data, color = "#005CA9", colors }) => {
   const uniqueId = React.useId ? React.useId() : Math.random().toString(36).substr(2, 9);
   const barColors = colors || [color, '#E31E24', '#FFD100', '#005CA9', '#F3F4F6'];
   const gradientId = `gradient-${uniqueId.replace(/:/g, '')}`;
 
-  const ChartContent = (
+  return (
+    <ResponsiveContainer width="100%" height="100%">
       <BarChart 
-        width={isPrint ? 550 : undefined} 
-        height={isPrint ? 300 : undefined}
         data={data} 
         margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
       >
@@ -70,33 +57,31 @@ export const SimpleBarChart: React.FC<ChartProps & { isPrint?: boolean }> = ({ d
           dataKey="name" 
           axisLine={false} 
           tickLine={false} 
-          tick={{fill: '#4b5563', fontSize: isPrint ? 12 : 11, fontWeight: 600}} 
+          tick={{fill: '#4b5563', fontSize: 11, fontWeight: 600}} 
           dy={10}
         />
         <YAxis 
           axisLine={false} 
           tickLine={false} 
-          tick={{fill: '#9ca3af', fontSize: isPrint ? 11 : 11}} 
+          tick={{fill: '#9ca3af', fontSize: 11}} 
         />
-        {!isPrint && (
-          <Tooltip 
-            cursor={{fill: '#f3f4f6', opacity: 0.5}}
-            contentStyle={{
-                borderRadius: '12px', 
-                border: 'none', 
-                boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
-                padding: '12px',
-                backgroundColor: 'rgba(255, 255, 255, 0.95)'
-            }} 
-          />
-        )}
+        <Tooltip 
+          cursor={{fill: '#f3f4f6', opacity: 0.5}}
+          contentStyle={{
+              borderRadius: '12px', 
+              border: 'none', 
+              boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
+              padding: '12px',
+              backgroundColor: 'rgba(255, 255, 255, 0.95)'
+          }} 
+        />
         <defs>
           <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor={color} stopOpacity={1}/>
             <stop offset="100%" stopColor={color} stopOpacity={0.6}/>
           </linearGradient>
         </defs>
-        <Bar dataKey="value" fill={isPrint ? color : `url(#${gradientId})`} radius={[6, 6, 0, 0]} isAnimationActive={!isPrint}>
+        <Bar dataKey="value" fill={`url(#${gradientId})`} radius={[6, 6, 0, 0]}>
           {data.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={barColors[index % barColors.length]} fillOpacity={0.9} />
           ))}
@@ -104,25 +89,12 @@ export const SimpleBarChart: React.FC<ChartProps & { isPrint?: boolean }> = ({ d
             dataKey="value" 
             position="top" 
             fill="#374151" 
-            fontSize={isPrint ? 13 : 12} 
+            fontSize={12} 
             fontWeight="bold"
             formatter={(value: number) => value.toLocaleString()}
           />
         </Bar>
       </BarChart>
-  );
-  
-  if (isPrint) {
-      return (
-          <div style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', maxHeight: '350px', overflow: 'hidden' }}>
-             {ChartContent}
-          </div>
-      );
-  }
-
-  return (
-    <ResponsiveContainer width="100%" height="100%">
-      {ChartContent}
     </ResponsiveContainer>
   );
 };
