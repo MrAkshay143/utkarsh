@@ -1,24 +1,26 @@
 // Dynamic configuration based on environment
 export const getConfig = () => {
-  const hostname = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
-
-  const isLocalhost = hostname === 'localhost' || hostname === '127.0.0.1' || hostname.startsWith('192.168.') || hostname.startsWith('10.') || hostname === '0.0.0.0';
+  const hostname = window.location.hostname;
+  const isLocalhost = hostname === 'localhost' || hostname === '127.0.0.1' || hostname.includes('localhost');
   const isProduction = hostname === 'bidhan.imakshay.in';
 
   return {
     environment: isLocalhost ? 'development' : isProduction ? 'production' : 'unknown',
-    api: {
-      baseURL: isLocalhost
-        ? 'http://localhost:3000/api'
-        : isProduction
-        ? 'https://bidhan.imakshay.in/api'
-        : 'https://bidhan.imakshay.in/api', // fallback to production
+    apiUrl: isLocalhost ? 'http://localhost:3000' : isProduction ? 'https://bidhan.imakshay.in' : '',
+    baseUrl: isLocalhost ? 'http://localhost:3000' : isProduction ? 'https://bidhan.imakshay.in' : window.location.origin,
+    isLocalhost,
+    isProduction,
+    // Add more configurable options here
+    branding: {
+      title: 'UTKARSH Presentation',
+      company: 'SHALIMAR GROUP',
+      // Could be different for different domains if needed
     },
     features: {
-      enableDebug: isLocalhost,
-      enableAnalytics: !isLocalhost,
-    },
-    domain: hostname,
+      adminPanel: true,
+      slideEditing: true,
+      // Add feature flags here
+    }
   };
 };
 
