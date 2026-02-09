@@ -57,9 +57,37 @@
           page-break-after: always;
           overflow: hidden;
           background: white;
+          position: relative;
         }
         .print-slide-page:last-child {
           page-break-after: auto;
+        }
+        /* Fix chart rendering in print mode */
+        .recharts-wrapper {
+          width: 100% !important;
+          height: 100% !important;
+        }
+        .recharts-surface {
+          width: 100% !important;
+          height: 100% !important;
+        }
+        /* Ensure chart containers have proper dimensions */
+        .recharts-responsive-container {
+          width: 100% !important;
+          height: 100% !important;
+          min-height: 300px !important;
+        }
+        /* Fix bar and pie charts */
+        svg.recharts-surface {
+          overflow: visible !important;
+        }
+        /* Prevent chart text from being cut off */
+        .recharts-text {
+          font-size: 10px !important;
+        }
+        /* Fix grid layout for charts */
+        [class*=\"grid\"] {
+          display: grid !important;
         }
       }
       .print-only {

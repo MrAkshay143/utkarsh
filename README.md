@@ -79,6 +79,7 @@ VITE_API_URL=http://localhost:3000 # API endpoint (if needed)
 The app includes a `_redirects` file in the `public/` folder to handle client-side routing on static hosts. This ensures that direct navigation to routes like `/admin` works properly in production.
 
 If your hosting platform doesn't support `_redirects` files (Netlify/Vercel format), you may need:
+
 - **Apache**: Add `.htaccess` with `FallbackResource /index.html`
 - **Nginx**: Configure `try_files $uri $uri/ /index.html`
 - **Other platforms**: Check their documentation for SPA routing support

@@ -11,13 +11,13 @@ export const SimplePieChart: React.FC<ChartProps & { isPrint?: boolean }> = ({ d
   const chartColors = colors || ['#005CA9', '#E31E24', '#FFD100', '#059669', '#7C3AED'];
 
   const ChartContent = (
-    <PieChart width={isPrint ? 200 : undefined} height={isPrint ? 200 : undefined} >
+    <PieChart width={isPrint ? 350 : undefined} height={isPrint ? 250 : undefined} >
         <Pie
           data={data}
           cx="50%"
           cy="50%"
-          innerRadius={isPrint ? 30 : 40}
-          outerRadius={isPrint ? 60 : 70}
+          innerRadius={isPrint ? 40 : 40}
+          outerRadius={isPrint ? 80 : 70}
           paddingAngle={5}
           dataKey="value"
         >
@@ -28,20 +28,19 @@ export const SimplePieChart: React.FC<ChartProps & { isPrint?: boolean }> = ({ d
             dataKey="value" 
             position="outside" 
             fill="#374151" 
-            fontSize={10} 
+            fontSize={isPrint ? 12 : 10} 
             fontWeight="bold"
             formatter={(value: number) => value.toLocaleString()}
-            className="hidden lg:block"
           />
         </Pie>
         {!isPrint && <Tooltip contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }} />}
-        <Legend verticalAlign="bottom" height={36} iconType="circle" iconSize={8} wrapperStyle={{ fontSize: '10px' }} />
+        <Legend verticalAlign="bottom" height={36} iconType="circle" iconSize={8} wrapperStyle={{ fontSize: isPrint ? '11px' : '10px' }} />
     </PieChart>
   );
 
   if (isPrint) {
       return (
-          <div style={{ width: 300, height: 200, display: 'flex', justifyContent: 'center' }}>
+          <div style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '250px' }}>
              {ChartContent}
           </div>
       );
@@ -61,23 +60,23 @@ export const SimpleBarChart: React.FC<ChartProps & { isPrint?: boolean }> = ({ d
 
   const ChartContent = (
       <BarChart 
-        width={isPrint ? 500 : undefined} 
-        height={isPrint ? 300 : undefined}
+        width={isPrint ? 600 : undefined} 
+        height={isPrint ? 350 : undefined}
         data={data} 
-        margin={{ top: 20, right: 30, left: 0, bottom: 5 }}
+        margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
       >
         <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e5e7eb" />
         <XAxis 
           dataKey="name" 
           axisLine={false} 
           tickLine={false} 
-          tick={{fill: '#4b5563', fontSize: 11, fontWeight: 600}} 
+          tick={{fill: '#4b5563', fontSize: isPrint ? 12 : 11, fontWeight: 600}} 
           dy={10}
         />
         <YAxis 
           axisLine={false} 
           tickLine={false} 
-          tick={{fill: '#9ca3af', fontSize: 11}} 
+          tick={{fill: '#9ca3af', fontSize: isPrint ? 11 : 11}} 
         />
         {!isPrint && (
           <Tooltip 
@@ -105,7 +104,7 @@ export const SimpleBarChart: React.FC<ChartProps & { isPrint?: boolean }> = ({ d
             dataKey="value" 
             position="top" 
             fill="#374151" 
-            fontSize={12} 
+            fontSize={isPrint ? 13 : 12} 
             fontWeight="bold"
             formatter={(value: number) => value.toLocaleString()}
           />
@@ -115,7 +114,7 @@ export const SimpleBarChart: React.FC<ChartProps & { isPrint?: boolean }> = ({ d
   
   if (isPrint) {
       return (
-          <div style={{ width: 500, height: 300 }}>
+          <div style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '350px' }}>
              {ChartContent}
           </div>
       );
