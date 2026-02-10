@@ -19,26 +19,26 @@ const SlideRenderer: React.FC<Props> = ({ data }) => {
     switch (data.type) {
       case SlideType.COVER:
         return (
-          <div className="flex flex-col items-center justify-center h-full text-center space-y-8 z-10 relative">
-            <div className="bg-white/80 p-16 rounded-2xl shadow-2xl backdrop-blur-md border-t-8 border-utkarsh-red max-w-4xl w-full relative">
+          <div className="flex flex-col items-center justify-center h-full text-center space-y-8 z-10 relative px-20">
+            <div className="bg-white/80 p-20 rounded-2xl shadow-2xl backdrop-blur-md border-t-8 border-utkarsh-red max-w-7xl w-full relative">
                {/* Company Logo in top-right corner of the card */}
                <div className="absolute top-4 right-4 z-20">
                  <div className="bg-white/90 p-2 rounded-lg shadow-md border border-gray-200">
                    <img src="/image.png" alt="UTKARSH Logo" className="h-20 w-auto object-contain" />
                  </div>
                </div>
-               <UtkarshLogo className="mb-10 scale-150" />
-               <div className="w-32 h-1.5 bg-gradient-to-r from-utkarsh-red to-utkarsh-yellow mx-auto mb-10 rounded-full"></div>
+               <UtkarshLogo className="mb-12 scale-[2]" />
+               <div className="w-40 h-2 bg-gradient-to-r from-utkarsh-red to-utkarsh-yellow mx-auto mb-12 rounded-full"></div>
                {isFieldVisible('cover-moto') && (
-                 <h2 className="text-3xl md:text-4xl font-light text-gray-800 leading-tight">
+                 <h2 className="text-4xl md:text-5xl font-light text-gray-800 leading-tight">
                   <span className="font-bold block mb-2 text-utkarsh-blue">PROJECT UTKARSH</span>
                   "{data.content.moto}"
                  </h2>
                )}
-               <div className="mt-12 flex flex-wrap justify-center gap-4">
+               <div className="mt-16 flex flex-wrap justify-center gap-6">
                   {data.content.bullets.map((b: string, i: number) => (
                     isFieldVisible(`cover-bullet-${i}`) && (
-                      <div key={i} className="flex items-center px-5 py-2.5 bg-gray-50 border border-gray-200 text-gray-700 rounded-lg text-sm font-semibold shadow-sm">
+                      <div key={i} className="flex items-center px-7 py-4 bg-gray-50 border border-gray-200 text-gray-700 rounded-lg text-lg font-semibold shadow-sm">
                           <span className="w-2 h-2 bg-utkarsh-blue rounded-full mr-3"></span>
                           {b}
                       </div>
@@ -275,16 +275,16 @@ const SlideRenderer: React.FC<Props> = ({ data }) => {
             </div>
 
             {/* Target Visualizations Grid */}
-            <div className="flex-1 grid grid-cols-2 gap-3">
+            <div className="flex-1 grid grid-cols-2 gap-3 min-h-0">
               {/* Sq Ft Targets Comparison */}
-              <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-3">
+              <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-3 flex flex-col">
                 <h4 className="text-sm font-bold text-gray-600 uppercase mb-2 tracking-wider flex items-center">
                   <svg className="w-4 h-4 mr-2 text-utkarsh-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                   </svg>
                   SQ FT TARGETS
                 </h4>
-                <div className="h-44">
+                <div className="flex-1 min-h-0">
                   <SimpleBarChart data={[
                     { name: '3M Order', value: 900000 },
                     { name: '3M Dispatch', value: 600000 },
@@ -295,14 +295,14 @@ const SlideRenderer: React.FC<Props> = ({ data }) => {
               </div>
 
               {/* Birds Targets Comparison */}
-              <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-3">
+              <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-3 flex flex-col">
                 <h4 className="text-sm font-bold text-gray-600 uppercase mb-2 tracking-wider flex items-center">
                   <svg className="w-4 h-4 mr-2 text-utkarsh-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
                   </svg>
                   BIRDS TARGETS
                 </h4>
-                <div className="h-44">
+                <div className="flex-1 min-h-0">
                   <SimpleBarChart data={[
                     { name: '3M Order', value: 1125000 },
                     { name: '3M Dispatch', value: 750000 },

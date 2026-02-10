@@ -17,8 +17,8 @@ export const SimplePieChart: React.FC<ChartProps> = ({ data, colors }) => {
             data={data}
             cx="50%"
             cy="50%"
-            innerRadius={40}
-            outerRadius={70}
+            innerRadius="40%"
+            outerRadius="75%"
             paddingAngle={5}
             dataKey="value"
           >
@@ -29,13 +29,13 @@ export const SimplePieChart: React.FC<ChartProps> = ({ data, colors }) => {
               dataKey="value" 
               position="outside" 
               fill="#374151" 
-              fontSize={10} 
+              fontSize={14} 
               fontWeight="bold"
               formatter={(value: number) => value.toLocaleString()}
             />
           </Pie>
           <Tooltip contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }} />
-          <Legend verticalAlign="bottom" height={36} iconType="circle" iconSize={8} wrapperStyle={{ fontSize: '10px' }} />
+          <Legend verticalAlign="bottom" height={40} iconType="circle" iconSize={10} wrapperStyle={{ fontSize: '13px', fontWeight: '600' }} />
       </PieChart>
     </ResponsiveContainer>
   );
