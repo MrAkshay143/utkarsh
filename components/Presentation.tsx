@@ -67,14 +67,16 @@ const Presentation: React.FC = () => {
     const slideElement = document.querySelector('.slide-container') as HTMLElement;
     const originalWidth = slideElement?.style.width;
     const originalHeight = slideElement?.style.height;
+    const originalTransform = slideElement?.style.transform;
 
     for (let i = 0; i < slides.length; i++) {
       setCurrentSlideIndex(i);
       
-      // Set exact dimensions for proper aspect ratio
+      // Set exact dimensions for proper aspect ratio and reset transform
       if (slideElement) {
         slideElement.style.width = '1920px';
         slideElement.style.height = '1080px';
+        slideElement.style.transform = 'scale(1)'; // Reset scaling for export
       }
 
       // Longer delay to allow animated charts to fully render at proper size
@@ -111,6 +113,7 @@ const Presentation: React.FC = () => {
     if (slideElement) {
       slideElement.style.width = originalWidth || '';
       slideElement.style.height = originalHeight || '';
+      slideElement.style.transform = originalTransform || '';
     }
 
     pdf.save('presentation.pdf');
@@ -140,14 +143,16 @@ const Presentation: React.FC = () => {
     const slideElement = document.querySelector('.slide-container') as HTMLElement;
     const originalWidth = slideElement?.style.width;
     const originalHeight = slideElement?.style.height;
+    const originalTransform = slideElement?.style.transform;
 
     for (let i = 0; i < slides.length; i++) {
       setCurrentSlideIndex(i);
       
-      // Set exact dimensions for proper aspect ratio
+      // Set exact dimensions for proper aspect ratio and reset transform
       if (slideElement) {
         slideElement.style.width = '1920px';
         slideElement.style.height = '1080px';
+        slideElement.style.transform = 'scale(1)'; // Reset scaling for export
       }
 
       // Longer delay to allow animated charts to fully render at proper size
@@ -188,6 +193,7 @@ const Presentation: React.FC = () => {
     if (slideElement) {
       slideElement.style.width = originalWidth || '';
       slideElement.style.height = originalHeight || '';
+      slideElement.style.transform = originalTransform || '';
     }
 
     await pptx.writeFile({ fileName: 'presentation.pptx' });
@@ -260,7 +266,14 @@ const Presentation: React.FC = () => {
     <>
       <div className="w-full h-screen flex flex-col bg-gray-900 screen-only">
         <div className="flex-1 relative overflow-hidden bg-white max-w-[1920px] mx-auto w-full shadow-2xl group">
-          <div className="slide-container w-full h-full">
+          <div 
+            className="slide-container w-full h-full"
+            style={{
+              transform: currentSlideIndex === 0 ? 'scale(0.85)' : 'scale(1)',
+              transformOrigin: 'center',
+              transition: 'transform 0.3s ease-in-out'
+            }}
+          >
             <SlideRenderer data={slides[currentSlideIndex]} />
           </div>
 
