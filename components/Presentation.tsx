@@ -335,7 +335,7 @@ const Presentation: React.FC = () => {
               disabled={currentSlideIndex === slides.length - 1}
               className={`absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/20 hover:bg-black/40 text-white transition-all z-30 opacity-0 group-hover:opacity-100 ${currentSlideIndex === slides.length - 1 ? '!opacity-0 pointer-events-none' : ''}`}
           >
-              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
           </button>
         </div>
         

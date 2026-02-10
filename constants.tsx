@@ -178,13 +178,59 @@ export const SLIDES: SlideData[] = [
         "Reduce dispatch-to-installation cycle time by 20%",
         "Capture 15% market share in premium EC segment",
         "24x7 Customer Service helpline for troubleshooting & support",
-        "Expand dealer network to 50+ key poultry hubs"
+        "Establish 12 specialized installation teams with 28 trained professionals"
       ]
     },
     prompt: "Executive summary document concept, checkmarks, balanced scales, professional clean desk"
   },
   {
     id: 7,
+    title: "Installation Team Structure",
+    subtitle: "Strategic Resource Allocation & Team Distribution",
+    type: SlideType.ORG_CHART,
+    content: {
+      title: "Installation Team",
+      topBox: "Installation Team",
+      heads: [
+        {
+          name: "Installation Head",
+          teams: [
+            { name: "Team 1", staff: 2, farms: 3 },
+            { name: "Team 2", staff: 2, farms: 3 },
+            { name: "Team 3", staff: 2, farms: 3 }
+          ]
+        },
+        {
+          name: "Installation Head",
+          teams: [
+            { name: "Team 4", staff: 2, farms: 3 },
+            { name: "Team 5", staff: 2, farms: 3 },
+            { name: "Team 6", staff: 2, farms: 3 }
+          ]
+        },
+        {
+          name: "Installation Head",
+          teams: [
+            { name: "Team 7", staff: 2, farms: 3 },
+            { name: "Team 8", staff: 2, farms: 3 },
+            { name: "Team 9", staff: 2, farms: 3 }
+          ]
+        },
+        {
+          name: "Installation Head",
+          teams: [
+            { name: "Team 10", staff: 2, farms: 3 },
+            { name: "Team 11", staff: 2, farms: 3 },
+            { name: "Team 12", staff: 2, farms: 3 }
+          ]
+        }
+      ],
+      footer: "Total No of Staff of Installation Team: 28"
+    },
+    prompt: "Professional organizational chart, corporate hierarchy tree, business team structure, modern icons"
+  },
+  {
+    id: 8,
     title: "Strategic Conclusion",
     type: SlideType.CONCLUSION,
     content: {

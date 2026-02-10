@@ -376,3 +376,105 @@ export const TargetDashboardTable: React.FC<{ columns: string[]; targets: any[] 
   );
 };
 
+export const OrganizationalChart: React.FC<{ data: any }> = ({ data }) => {
+  const { title, topBox, heads, footer } = data;
+  
+  return (
+    <div className="w-full h-full flex flex-col items-center justify-center py-2 px-4 bg-gradient-to-br from-gray-50 to-blue-50">
+      {/* Title */}
+      <h2 className="text-xl font-black text-utkarsh-blue mb-3 text-center tracking-tight">
+        {title}
+      </h2>
+      
+      {/* Top Level Box - Installation Team */}
+      <div className="relative mb-6">
+        <div className="bg-gradient-to-br from-utkarsh-red to-red-600 text-white px-8 py-2.5 rounded-lg shadow-lg border-2 border-white">
+          <div className="flex items-center gap-2">
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+            </svg>
+            <span className="text-base font-extrabold tracking-wide">{topBox}</span>
+          </div>
+        </div>
+        {/* Vertical line down from top box */}
+        <div className="absolute left-1/2 -bottom-6 w-0.5 h-6 bg-gradient-to-b from-utkarsh-blue to-blue-400 transform -translate-x-1/2"></div>
+      </div>
+      
+      {/* Horizontal connector line */}
+      <div className="relative w-full max-w-6xl mb-3">
+        <div className="absolute left-0 right-0 top-0 h-0.5 bg-gradient-to-r from-transparent via-utkarsh-blue to-transparent" style={{ left: '12.5%', right: '12.5%' }}></div>
+        
+        {/* Second Level - Installation Heads */}
+        <div className="grid grid-cols-4 gap-3 relative">
+          {heads.map((head: any, headIdx: number) => (
+            <div key={headIdx} className="flex flex-col items-center relative">
+              {/* Vertical line up to horizontal connector */}
+              <div className="w-0.5 h-3 bg-gradient-to-b from-utkarsh-blue to-blue-400 mb-1"></div>
+              
+              {/* Head Box */}
+              <div className="bg-gradient-to-br from-utkarsh-blue to-blue-600 text-white px-3 py-2 rounded-lg shadow-md border-2 border-white mb-3 w-full text-center relative z-10">
+                <div className="flex items-center justify-center gap-1.5">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                  </svg>
+                  <span className="text-xs font-bold">{head.name}</span>
+                </div>
+              </div>
+              
+              {/* Vertical line from head to teams */}
+              {head.teams.length > 0 && (
+                <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-gradient-to-b from-blue-400 to-transparent" 
+                     style={{ top: 'calc(3px + 2.5rem + 0.75rem)', height: 'calc(100% - 3.5rem)' }}></div>
+              )}
+              
+              {/* Teams under this head */}
+              <div className="flex flex-col gap-1.5 w-full relative">
+                {head.teams.map((team: any, teamIdx: number) => (
+                  <div key={teamIdx} className="relative">
+                    {/* Horizontal connector to team box */}
+                    <div className="absolute left-0 top-1/2 w-4 h-0.5 bg-gradient-to-r from-blue-400 to-blue-300 transform -translate-y-1/2 -translate-x-4"></div>
+                    
+                    <div className="bg-white rounded-md shadow-sm border border-gray-200 p-2 hover:shadow-lg transition-all hover:border-utkarsh-blue relative z-10">
+                      <div className="flex items-center gap-1.5 mb-1">
+                        <div className="bg-gradient-to-br from-yellow-400 to-yellow-500 text-white rounded-full w-5 h-5 flex items-center justify-center flex-shrink-0">
+                          <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                          </svg>
+                        </div>
+                        <span className="text-[11px] font-extrabold text-utkarsh-blue">{team.name}</span>
+                      </div>
+                      <div className="text-[9px] space-y-0.5">
+                        <div className="flex items-center gap-1 bg-green-50 px-1.5 py-0.5 rounded">
+                          <svg className="w-2.5 h-2.5 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                          </svg>
+                          <span className="font-bold text-gray-700">Staff: {team.staff}</span>
+                        </div>
+                        <div className="flex items-center gap-1 bg-blue-50 px-1.5 py-0.5 rounded">
+                          <svg className="w-2.5 h-2.5 text-blue-600 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
+                          </svg>
+                          <span className="font-bold text-gray-700">Farms/Mo: {team.farms}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      
+      {/* Footer Summary */}
+      <div className="mt-3 bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-2 rounded-lg shadow-lg border-2 border-white">
+        <div className="flex items-center gap-2">
+          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+          </svg>
+          <span className="text-sm font-extrabold tracking-wide">{footer}</span>
+        </div>
+      </div>
+    </div>
+  );
+};

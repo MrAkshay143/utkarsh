@@ -71,7 +71,8 @@ const AdminDashboard: React.FC = () => {
       [SlideType.BULLET_SUMMARY]: 'Bullet Summary',
       [SlideType.CONCLUSION]: 'Conclusion',
       [SlideType.DASHBOARD_TABLE]: 'Dashboard Table',
-      [SlideType.TARGET_DASHBOARD]: 'Target Dashboard'
+      [SlideType.TARGET_DASHBOARD]: 'Target Dashboard',
+      [SlideType.ORG_CHART]: 'Organizational Chart'
     };
     return names[type] || 'Unknown';
   };
@@ -456,6 +457,125 @@ const AdminDashboard: React.FC = () => {
                     }}
                     className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-lg text-sm resize-none" rows={2} />
                   <div style={{position:'absolute',right:'8px',top:'8px'}}><EyeIcon fieldKey={`tgt-${i}`} isVisible={isFieldVisible(`tgt-${i}`)} /></div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+
+      case SlideType.ORG_CHART:
+        return (
+          <div className="space-y-6">
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+              <h4 className="font-bold text-utkarsh-blue mb-3">Organization Details</h4>
+              <div className="space-y-4">
+                <div style={{position:'relative'}}>
+                  <label className="block text-xs font-semibold text-gray-600 mb-1">Chart Title</label>
+                  <input type="text" value={selectedSlide.content.title || ''}
+                    onChange={(e) => {
+                      updateSlideContent(selectedSlideId, 'title', e.target.value);
+                      showSaveMessage('Updated!');
+                    }}
+                    className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-lg" />
+                  <EyeIcon fieldKey="org-title" isVisible={isFieldVisible('org-title')} />
+                </div>
+                <div style={{position:'relative'}}>
+                  <label className="block text-xs font-semibold text-gray-600 mb-1">Top Box (Main Team Name)</label>
+                  <input type="text" value={selectedSlide.content.topBox || ''}
+                    onChange={(e) => {
+                      updateSlideContent(selectedSlideId, 'topBox', e.target.value);
+                      showSaveMessage('Updated!');
+                    }}
+                    className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-lg" />
+                  <EyeIcon fieldKey="org-topbox" isVisible={isFieldVisible('org-topbox')} />
+                </div>
+                <div style={{position:'relative'}}>
+                  <label className="block text-xs font-semibold text-gray-600 mb-1">Footer Summary</label>
+                  <input type="text" value={selectedSlide.content.footer || ''}
+                    onChange={(e) => {
+                      updateSlideContent(selectedSlideId, 'footer', e.target.value);
+                      showSaveMessage('Updated!');
+                    }}
+                    className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-lg" />
+                  <EyeIcon fieldKey="org-footer" isVisible={isFieldVisible('org-footer')} />
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h4 className="font-bold text-gray-700 mb-3">Team Heads & Teams</h4>
+              {selectedSlide.content.heads?.map((head: any, headIdx: number) => (
+                <div key={headIdx} className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
+                  <div className="flex items-center justify-between mb-3">
+                    <h5 className="font-bold text-utkarsh-blue">Head {headIdx + 1}</h5>
+                  </div>
+                  <div style={{position:'relative',marginBottom:'12px'}}>
+                    <label className="block text-xs font-semibold text-gray-600 mb-1">Head Name</label>
+                    <input type="text" value={head.name || ''}
+                      onChange={(e) => {
+                        const newHeads = [...selectedSlide.content.heads];
+                        newHeads[headIdx] = { ...newHeads[headIdx], name: e.target.value };
+                        updateSlideContent(selectedSlideId, 'heads', newHeads);
+                        showSaveMessage('Updated!');
+                      }}
+                      className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-lg" />
+                    <EyeIcon fieldKey={`org-head${headIdx}-name`} isVisible={isFieldVisible(`org-head${headIdx}-name`)} />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="block text-xs font-semibold text-gray-600">Teams under this Head</label>
+                    {head.teams?.map((team: any, teamIdx: number) => (
+                      <div key={teamIdx} className="bg-white border border-gray-300 rounded-lg p-3">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="bg-utkarsh-blue text-white px-2 py-1 rounded text-xs font-bold">Team {teamIdx + 1}</span>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                          <div style={{position:'relative'}}>
+                            <label className="block text-[10px] font-semibold text-gray-500 mb-1">Team Name</label>
+                            <input type="text" value={team.name || ''}
+                              onChange={(e) => {
+                                const newHeads = [...selectedSlide.content.heads];
+                                const newTeams = [...newHeads[headIdx].teams];
+                                newTeams[teamIdx] = { ...newTeams[teamIdx], name: e.target.value };
+                                newHeads[headIdx] = { ...newHeads[headIdx], teams: newTeams };
+                                updateSlideContent(selectedSlideId, 'heads', newHeads);
+                                showSaveMessage('Updated!');
+                              }}
+                              className="w-full px-2 py-1 pr-8 border border-gray-300 rounded text-sm" />
+                            <div style={{position:'absolute',right:'4px',top:'20px'}}><EyeIcon fieldKey={`org-h${headIdx}t${teamIdx}-name`} isVisible={isFieldVisible(`org-h${headIdx}t${teamIdx}-name`)} /></div>
+                          </div>
+                          <div style={{position:'relative'}}>
+                            <label className="block text-[10px] font-semibold text-gray-500 mb-1">Staff Count</label>
+                            <input type="number" value={team.staff || 0}
+                              onChange={(e) => {
+                                const newHeads = [...selectedSlide.content.heads];
+                                const newTeams = [...newHeads[headIdx].teams];
+                                newTeams[teamIdx] = { ...newTeams[teamIdx], staff: parseInt(e.target.value) || 0 };
+                                newHeads[headIdx] = { ...newHeads[headIdx], teams: newTeams };
+                                updateSlideContent(selectedSlideId, 'heads', newHeads);
+                                showSaveMessage('Updated!');
+                              }}
+                              className="w-full px-2 py-1 pr-8 border border-gray-300 rounded text-sm" />
+                            <div style={{position:'absolute',right:'4px',top:'20px'}}><EyeIcon fieldKey={`org-h${headIdx}t${teamIdx}-staff`} isVisible={isFieldVisible(`org-h${headIdx}t${teamIdx}-staff`)} /></div>
+                          </div>
+                          <div style={{position:'relative'}}>
+                            <label className="block text-[10px] font-semibold text-gray-500 mb-1">Farms/Month</label>
+                            <input type="number" value={team.farms || 0}
+                              onChange={(e) => {
+                                const newHeads = [...selectedSlide.content.heads];
+                                const newTeams = [...newHeads[headIdx].teams];
+                                newTeams[teamIdx] = { ...newTeams[teamIdx], farms: parseInt(e.target.value) || 0 };
+                                newHeads[headIdx] = { ...newHeads[headIdx], teams: newTeams };
+                                updateSlideContent(selectedSlideId, 'heads', newHeads);
+                                showSaveMessage('Updated!');
+                              }}
+                              className="w-full px-2 py-1 pr-8 border border-gray-300 rounded text-sm" />
+                            <div style={{position:'absolute',right:'4px',top:'20px'}}><EyeIcon fieldKey={`org-h${headIdx}t${teamIdx}-farms`} isVisible={isFieldVisible(`org-h${headIdx}t${teamIdx}-farms`)} /></div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </div>

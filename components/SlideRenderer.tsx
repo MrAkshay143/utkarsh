@@ -1,6 +1,6 @@
 import React from 'react';
 import { SlideData, SlideType } from '../types';
-import { SimpleBarChart, SimplePieChart, MetricCard, StepProcess, ComparisonTable, DashboardMetricCard, DashboardDataTable, TargetDashboardTable } from './SlideComponents';
+import { SimpleBarChart, SimplePieChart, MetricCard, StepProcess, ComparisonTable, DashboardMetricCard, DashboardDataTable, TargetDashboardTable, OrganizationalChart } from './SlideComponents';
 import { UtkarshLogo } from '../constants';
 
 interface Props {
@@ -413,6 +413,13 @@ const SlideRenderer: React.FC<Props> = ({ data }) => {
             </div>
           );
 
+      case SlideType.ORG_CHART:
+        return (
+          <div className="h-full">
+            <OrganizationalChart data={data.content} />
+          </div>
+        );
+
       case SlideType.CONCLUSION:
           return (
             <div className="flex flex-col justify-center h-full text-center relative">
@@ -533,7 +540,7 @@ const SlideRenderer: React.FC<Props> = ({ data }) => {
        </div>
 
        {/* Slide Header */}
-       {data.id !== 1 && data.id !== 7 && (
+       {data.id !== 1 && data.id !== 8 && (
          <div className="relative z-20 px-10 py-4 flex justify-between items-end bg-white/70 backdrop-blur-md border-b border-gray-200 shadow-sm">
             <div>
                 {isFieldVisible('slide-title') && <h1 className="text-4xl font-extrabold text-utkarsh-blue tracking-tight drop-shadow-sm">{data.title}</h1>}

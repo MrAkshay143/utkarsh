@@ -7,7 +7,8 @@ export enum SlideType {
   BULLET_SUMMARY,
   CONCLUSION,
   DASHBOARD_TABLE,
-  TARGET_DASHBOARD
+  TARGET_DASHBOARD,
+  ORG_CHART
 }
 
 export interface SlideData {
