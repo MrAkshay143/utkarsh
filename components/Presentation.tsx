@@ -107,8 +107,8 @@ const Presentation: React.FC = () => {
 
     pdf.save('presentation.pdf');
 
-    // Exit fullscreen if we entered it
-    if (!wasFullScreen && document.exitFullscreen) {
+    // Always exit fullscreen after export
+    if (document.fullscreenElement && document.exitFullscreen) {
       await document.exitFullscreen();
       setIsFullScreen(false);
     }
@@ -184,8 +184,8 @@ const Presentation: React.FC = () => {
 
     await pptx.writeFile({ fileName: 'presentation.pptx' });
 
-    // Exit fullscreen if we entered it
-    if (!wasFullScreen && document.exitFullscreen) {
+    // Always exit fullscreen after export
+    if (document.fullscreenElement && document.exitFullscreen) {
       await document.exitFullscreen();
       setIsFullScreen(false);
     }
@@ -200,6 +200,10 @@ const Presentation: React.FC = () => {
             return prev + 1;
           } else {
             setIsAutoPlay(false); // Stop at the end
+            // Exit full screen when auto play ends
+            if (document.fullscreenElement && document.exitFullscreen) {
+              document.exitFullscreen();
+            }
             return prev;
           }
         });
