@@ -37,7 +37,15 @@ const Presentation: React.FC = () => {
   };
 
   const toggleAutoPlay = () => {
-    setIsAutoPlay(prev => !prev);
+    setIsAutoPlay(prev => {
+      const newValue = !prev;
+      if (newValue && !document.fullscreenElement) {
+        // Enter full screen when starting auto play
+        document.documentElement.requestFullscreen();
+        setIsFullScreen(true);
+      }
+      return newValue;
+    });
   };
 
   // Export to PDF - 1 slide per page, full fit with auto fullscreen
